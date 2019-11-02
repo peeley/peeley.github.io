@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" type"text/css" href="../style.css">
+        <title>noah snelson</title>
+    </head>
+    <body>
+        <header>
+                <nav>
+                    <a href="../index.html">noah snelson</a>
+                    ::
+                    <a href="../about.html">about</a>
+                    ::
+                    <a href="../resume.pdf">resume</a>
+                    ::
+                    <a href="http://github.com/peeley">projects</a>
+                </nav>
+        </header>
+        <article>
+            <div class="content">
+                <h1>HacktoberFest 2019</h1>
+                <hr/>
+                <section>
+                <p>
+                Every year for the past few years, I've wanted to participate
+                in Digital Ocean's annual HacktoberFest competition. If you
+                haven't heard of it, DigitalOcean annually hosts a
+                challenge wherein programmers make contributions to open
+                source software during the month of October. All that's
+                required of participants is to make a few pull requests (this
+                year four were required) to public GitHub repositories and have
+                the pull requests be verified to not be spam or
+                counterproductive to maintainers.
+                </p>
+                <p>
+                Overall, it's a great way to introduce people new
+                to open source or programming in general to the open source
+                community. Although I've been a huge supporter of the open
+                source philosophy and a competent programmer for the better 
+                part of a decade now, I had never gotten around to 
+                participating before.
+                Nearly ever year for the past three or four years, I would sign
+                up for the challenge and school or life would get in the way,
+                or I would be excited to start but be completely lost on what
+                projects to contribute to. This year, however, was the
+                exception - I finally participated in and completed the
+                HacktoberFest challenge. Here are some of the projects I worked
+                on, along with the work I did.
+                </p>
+                </section>
+                <section>
+                <h3>Cataclysm: Dark Days Ahead</h3>
+                <p>
+                Although I don't play video games nearly as much as I did as a
+                kid, from time to time I do enjoy a good roguelike. Cataclysm:
+                Dark Days Ahead (CDDA) is exactly that - an open-world roguelike
+                set in a zombie apocalypse with a level of complexity only
+                comparable to Dwarf Fortress or NetHack. Along with the usual
+                roguelike features of turn-based combat, tileset/ASCII
+                graphics, randomly-generated content, and permadeath, the game
+                features an crafting system with hundreds of recipes and items.
+                </p>
+                <p>
+                Two of my pull requests came from fixing bugs within the
+                crafting system. All items and recipes are stored as JSON files
+                within a folder in the repository, and as such bug fixes
+                regarding item requirements or balance tweaks are super easy -
+                compiling and testing the game isn't even necessary to validate
+                the PR, just a JSON formatting check through TravisCI. My 
+                <a href="https://github.com/CleverRaven/Cataclysm-DDA/pull/34503">
+                first</a> pull request fixed a bug wherein the BB gun item was
+                incorrectly labeled with an item property called "FOULING".
+                Essentially, to balance gunpowder firearms in-game, the
+                developers added the FOULING item flag; all FOULING items have
+                their durability reduced after repeated shots, representing the
+                gunpowder residue wearing out the rifling or barrel of the
+                firearms. A BB gun obviously doesn't use gunpowder, so the bug
+                fix was simple enough - remove the FOULING flag from the BB gun
+                item JSON.
+                </p>
+                <p>
+                My 
+                <a href=https://github.com/CleverRaven/Cataclysm-DDA/pull/34696">
+                second</a> pull request was similar. Items can also have item
+                group labels, which simplify random content generation, e.g. 
+                instead of listing every item that could possibly spawn in a 
+                gun store, just allow items with the group label "gunstore" to 
+                spawn in gunstores. If an item does not belong to any item
+                group, though, it doesn't spawn in any location unless it is
+                explicitly and individually added. This is what was happening
+                to the "v6_diesel" item - because V6 diesel engines didn't
+                actually belong to any item group, it never spawned in game.
+                All I did to fix this was add it to the appropriate itemgroups,
+                like "road" and "supplies_mechanics" to allow it to spawn on
+                vehicles along roads and in mechanic shops.
+                </p>
+                </section>
+                <section>
+                <h3>Servant</h3>
+                <p>
+                I've been using Haskell as one of my primary side-project
+                languages for about a year now. After discovering it and
+                going through the fantastic <a href="http://learnyouahaskell.com/">
+                Learn You a Haskell For Great Good</a> book to get the 
+                basics down, I decided to see how the support was for web 
+                development. I came across a framework named
+                Servant, which seemed attractive with its similarities to the
+                Flask framework I had experience with in Python. Both are
+                fairly minimal framework that are more intended for backend
+                API servers, rather than huge, opinionated, batteries-included 
+                frameworks like Django in Python or Yesod for Haskell.
+                </p>
+                <p>
+                As I'd used Servant for a couple months by the time the start
+                of the challenge came around, I felt like it was time to give
+                back to the project. I looked around the issues, but most that
+                I could find were a couple months old or were super advanced
+                type-level Haskell magic that I still haven't gotten around to
+                learning. Some of the issues were related to documentation, so
+                I thought I'd give them a try. The 
+                <a href="https://github.com/haskell-servant/servant/pull/1234">
+                pull request</a> I did manage to get done was simply fixing the 
+                broken links in the tutorial documentation.
+                </p>
+                </section>
+                <section>
+                <h3>Hy</h3>
+                <p>
+                Everytime I see someone talk about Lisp on the Internet or in a
+                computer science class, they always liken it to a
+                <a href="https://www.xkcd.com/224/">
+                mind-expanding psychedelic experience</a>. Unfortunately, 
+                I'd never gotten an excuse to fully dive into Lisp any 
+                deeper than the basic introduction to Scheme during a chapter
+                of my programming languages class. When I found Hy, however, I
+                found a great excuse to get into Lisp. Hy is a Lisp dialect
+                that is based on the Python interpreter, similar to Clojure
+                using the JVM. As a programming language nerd, I always find
+                myself wanting to learn a new interesting language, but
+                constantly having to resist sinking time into an obscure
+                technology that might not pay off in any meaningful way. 
+                Hy is different in that it's totally interoperable with 
+                Python and Python packages, so Hy already benefits from the 
+                huge and high-quality Python ecosystem.
+                </p>
+                <p>
+                My contribution to Hy was the first 
+                <a href="https://github.com/hylang/hy/pull/1826">pull request
+                </a> I made that wasn't based on an issue listed on GitHub. 
+                When I was going through the quickstart for Hy, I noticed that 
+                the help message in the <code>hy</code> interpreter was 
+                identical to that in the vanilla Python interpreter. This was a
+                bug, since the default help message "<code>Type help() for
+                interactive help, or help(object) for help about object.</code>"
+                doesn't show the actual help command which used the Lisp-like 
+                syntax <code>(help)</code>. 
+                For the first time in the challenge, I had to actually dive into 
+                the code in the repository and check out the guts of the 
+                interpreter. Fortunately, <code>grep</code>ing for the help
+                message took me directly to the culprit, and all that was
+                necessary to fix the bug was to create a new Python object to
+                override the default Python help object. Unfortunately, the
+                <code>(help)</code> function still uses the default PyDoc help
+                system which prints "<code>Welcome to Python 3.7's help 
+                utility!</code>. Changing the "Python 3.7" to "Hy (version
+                number)" would require a rewrite of the PyDoc module, which
+                seemed a little unnecessarily intensive. I might come back to
+                change this since it is aesthetically displeasing and
+                communicates an over-reliance on Python tooling, but for now I
+                think it'll serve it's purpose well enough.
+                </p>
+                </section>
+                <section>
+                <h3>Closing Thoughts</h3>
+                <p>
+                As I expected, participating in HacktoberFest was a blast. As
+                much as I love working on my personal side projects, getting
+                the feeling of "Is this a valuable use of my time and skills?" 
+                every so often is kind of a downer. With open source projects 
+                (at least the popular ones), I can see my own name pop up as a 
+                contributor to software that I and thousands of others use and 
+                enjoy. 
+                </p>
+                <p>
+                This was also an interesting look at the process of
+                entering the open-source community. Even though there are 
+                <a href="https://up-for-grabs.net/#/">tons</a>
+                <a href="http://github-help-wanted.com/">of</a> 
+                <a href="https://www.firsttimersonly.com/">sites</a>
+                catered to people who want to find a cool project with
+                some low-hanging possible contributions, I didn't find
+                any of them particularly useful. Not only do these sites not
+                really describe the project beyond giving a link to a GitHub 
+                repository, I simply didn't feel interested in
+                spending time on any of the projects I saw. I ended up 
+                contributing to the projects I did because I was familiar with 
+                them and also had a vested interest in their success. 
+                </p>
+                <p>
+                Another thing I found pretty unhelpful was the 
+                "good for beginners" tag for issues on GitHub. All the "good
+                for beginners" issues I saw on repositories were weeks to months
+                old and had been fruitlessly picked over by a few hopeful
+                contributors by the time that I looked at them. The actual easy
+                and beginner-friendly issues had just been
+                posted within the same day and were still unlabeled and
+                unclaimed. There seems to be a sort of <a
+                href="https://en.wikipedia.org/wiki/Survivorship_bias">survivorship
+                bias</a> at work 
+                here - as contributors infrequently label issues, all the
+                issues that are truly "good for beginners" are fixed by the
+                time that contributors get around to labeling, so the
+                issues that are labeled such are really of medium difficulty
+                or higher. Seeing a pretty tough or involved issue labeled as
+                "good for beginners" is intimidating and certainly made me
+                question my abilities, which further factors into the difficulty
+                of getting people involved as contributors to open source 
+                software. So if any open source maintainers are reading, here's
+                my two cents: try to label issues more frequently, or change
+                the labeling to reflect more difficulty than anticipated after
+                a few people have unsuccessfully taken a crack at fixing the
+                issue.
+                </p>
+                <p>
+                Overall, HacktoberFest 2019 was a great experience. I branched
+                out into some technologies I wouldn't have expected, got some
+                real experience on working with widely-used software, and can
+                now call myself an open-source contributor. I know it's just a
+                stupid T-shirt, but I'm sure once my HacktoberFest shirt comes
+                in the mail I'll wear it proudly.
+                </p>
+                </section>
+            </div>
+        </article>
+    </body>
+</html>
